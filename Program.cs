@@ -2,9 +2,7 @@
 using SistemaBancario.Utils;
 
 ContaBancaria sistemabancario = new ContaBancaria();
-
 bool continuar = true;
-
 
 
 while (continuar)
@@ -16,22 +14,24 @@ while (continuar)
     Console.WriteLine(" 3 - Consultar Saldo");
     Console.WriteLine(" 4 - Sair");
     Console.WriteLine("---------------------------------");
-    Console.Write("Escolha uma opção: ");
 
-    string opcao = Console.ReadLine();
+    string opcao = Entrada.LerTexto("Escolha uma opção: ");
 
-
+try
+{
     switch (opcao)
     {
         case "1":
             Console.WriteLine("Depósito");
             decimal deposito = Entrada.LerDecimal("Digite o valor do depósito: ");
             sistemabancario.Depositar(deposito);
+            Console.WriteLine($"Depósito de {deposito:C} realizado com sucesso. Novo saldo: {sistemabancario.Saldo:C}");
             break;
         case "2":
             Console.WriteLine("Saque");
             decimal saque = Entrada.LerDecimal("Digite o valor do saque: ");
             sistemabancario.Sacar(saque);
+            Console.WriteLine($"Saque de {saque:C} realizado com sucesso. Novo saldo: {sistemabancario.Saldo:C}");
             break;
         case "3":
             Console.WriteLine("Consulta de Saldo");
@@ -48,3 +48,16 @@ while (continuar)
     }
 }
 
+catch (SaldoInsuficienteException ex)
+{
+    Console.WriteLine($"Erro: {ex.Message}");
+}
+catch (ArgumentException ex)
+{
+    Console.WriteLine($"Erro: {ex.Message}");
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"Ocorreu um erro inesperado: {ex.Message}");
+}
+}

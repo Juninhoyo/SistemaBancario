@@ -5,6 +5,13 @@ using System.Threading.Tasks;
 
 namespace SistemaBancario.Models
 {
+    public class SaldoInsuficienteException : Exception
+    {
+        public SaldoInsuficienteException(string message) : base(message)
+        {
+        }
+    }
+
     public class ContaBancaria
     {
         public decimal Saldo { get; private set; }
@@ -14,26 +21,23 @@ namespace SistemaBancario.Models
             if (valor > 0)
             {
                 Saldo += valor;
-                Console.WriteLine($"Depósito de R${valor} realizado com sucesso. Novo saldo: R${Saldo}");
             }
             else
             {
-                Console.WriteLine("Valor de depósito inválido. O valor deve ser maior que zero.");
+                throw new ArgumentException("O valor do depósito deve ser maior que zero.");
             }
         
         }
 
         public void Sacar(decimal valor)
         {
-            if (valor > 0 && valor <= Saldo)
-            {
-                Saldo -= valor;
-                Console.WriteLine($"Saque de R${valor} realizado com sucesso. Novo saldo: R${Saldo}");
-            }
-            else
-            {
-                Console.WriteLine("Valor de saque inválido. O valor deve ser menor ou igual a quantidade de saldo disponível.");
-            }
+            if (valor <= 0)
+                throw new ArgumentException("O valor do saque deve ser maior que zero.");
+
+            if (valor > Saldo)
+                throw new SaldoInsuficienteException("Saldo insuficiente para realizar o saque.");
+
+            Saldo -= valor;        
         }
 
     }

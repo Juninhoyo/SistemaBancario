@@ -24,5 +24,23 @@ namespace SistemaBancario.Utils
             }
 
         }
+
+        public static string LerTexto(string mensagem)
+        {
+            while (true)
+            {
+                Console.Write(mensagem);
+                string entrada = Console.ReadLine();
+
+                if (!string.IsNullOrWhiteSpace(entrada))
+                {
+                    return entrada;
+                }
+                else
+                {
+                    Console.WriteLine("Entrada inválida.");
+                }
+            }
+        }
     }
 }
