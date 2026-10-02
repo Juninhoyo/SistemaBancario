@@ -5,13 +5,6 @@ using System.Threading.Tasks;
 
 namespace SistemaBancario.Models
 {
-    public class SaldoInsuficienteException : Exception
-    {
-        public SaldoInsuficienteException(string message) : base(message)
-        {
-        }
-    }
-
     public class ContaBancaria
     {
         public decimal Saldo { get; private set; }

@@ -34,12 +34,9 @@ namespace SistemaBancario.Utils
 
                 if (!string.IsNullOrWhiteSpace(entrada))
                 {
-                    return entrada;
+                    return entrada.Trim();
                 }
-                else
-                {
-                    Console.WriteLine("Entrada inválida.");
-                }
+                Console.WriteLine("Entrada inválida.");
             }
         }
     }
